@@ -11,9 +11,12 @@ POST     /persons/bulk              controllers.PersonController.createBulkFromJ
 
 GET      /persons                   controllers.PersonController.findByName(name: String)
 
-POST     /servers/add               controllers.ServerController.create(calife: String)
+POST     /servers/add               controllers.ServerController.create(calife: String, datacenter: Datacenter, stockage: Stockage)
 POST     /servers/                  controllers.ServerController.createFromJson
 POST     /servers/bulk              controllers.ServerController.createBulkFromJson
 
 GET      /servers                   controllers.ServerController.findByName(calife: String)
 GET      /servers/all               controllers.ServerController.all()
+
+
+GET   /places               controllers.Application.listPlaces

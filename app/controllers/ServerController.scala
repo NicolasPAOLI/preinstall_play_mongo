@@ -5,7 +5,7 @@ package controllers
   */
 import javax.inject._
 
-import models.Server
+import models.{Datacenter, Server, Stockage}
 import play.api.Logger
 import play.api.libs.json._
 import play.api.mvc._
@@ -27,10 +27,10 @@ class ServerController @Inject()(val reactiveMongoApi: ReactiveMongoApi)(implici
 
   def serversFuture: Future[JSONCollection] = database.map(_.collection[JSONCollection]("server"))
 
-  def create(calife: String) = Action.async {
+  def create(calife: String, datacenter: Datacenter, stockage: Stockage) = Action.async {
     for {
       servers <- serversFuture
-      lastError <- servers.insert(Server(calife))
+      lastError <- servers.insert(Server(calife, datacenter, stockage))
     } yield
       Ok("Mongo LastError: %s".format(lastError))
   }
